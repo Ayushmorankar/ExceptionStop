@@ -30,7 +30,7 @@ public class MailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom(emailSendFrom);
             messageHelper.setTo(notificationEmail.getRecipient());
-            messageHelper.setSubject("Account Activation");
+            messageHelper.setSubject(notificationEmail.getSubject());
             messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));
         };
         try{
