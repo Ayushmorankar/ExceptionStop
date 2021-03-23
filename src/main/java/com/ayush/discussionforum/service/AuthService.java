@@ -133,9 +133,13 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public Student getCurrentStudent(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return studentRepository.findByUsername(user.getUsername())
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.valueOf(404), "Username not found"));
+        try {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return studentRepository.findByUsername(user.getUsername())
+                    .orElseThrow(()-> new ResponseStatusException(HttpStatus.valueOf(404), "Username not found"));
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.valueOf(401), "Student not logged in");
+        }
     }
 
     public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {

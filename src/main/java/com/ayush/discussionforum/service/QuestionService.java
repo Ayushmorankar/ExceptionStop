@@ -87,7 +87,7 @@ public class QuestionService {
                     .orElseThrow(()-> new ResponseStatusException(HttpStatus.valueOf(404), "Answer not found"));
             question.setAnsweredBy(answer.getStudent().getUsername());
         }
-        else throw new ResponseStatusException(HttpStatus.valueOf(403));
+        else throw new ResponseStatusException(HttpStatus.valueOf(403), "Already marked");
     }
 
     private Question mapRequestToQuestion(QuestionRequest questionRequest){
