@@ -81,7 +81,7 @@ public class QuestionService {
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.valueOf(404), "Question not found"));
         Student currentStudent = authService.getCurrentStudent();
 
-        if(question.getStudent().getUsername().equals(currentStudent.getUsername()) ||
+        if(question.getStudent().getUsername().equals(currentStudent.getUsername()) &&
                 question.getAnsweredBy() == null){
             Answer answer = answerRepository.findById(answerId)
                     .orElseThrow(()-> new ResponseStatusException(HttpStatus.valueOf(404), "Answer not found"));
